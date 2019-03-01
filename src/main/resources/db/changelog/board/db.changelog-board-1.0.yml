@@ -1,0 +1,42 @@
+databaseChangeLog:
+  - objectQuotingStrategy: QUOTE_ALL_OBJECTS
+  - preConditions:
+    - dbms:
+        type: postgresql
+  - changeSet:
+      id: board-1.0:1
+      author: MBENMOHA
+      changes:
+      - createTable:
+          columns:
+          - column:
+              constraints:
+                nullable: false
+                unique: true
+              name: id
+              type: BIGINT
+          - column:
+              name: title
+              type: VARCHAR(255)
+          - column:
+              name: description
+              type: VARCHAR(255)
+          - column:
+              name: stage_cd
+              type: VARCHAR(255)
+          - column:
+              constraints:
+                nullable: false
+              name: update_date
+              type: TIMESTAMP(6) WITHOUT TIME ZONE
+          - column:
+              name: active_indicator
+              type: BOOLEAN
+          tableName: board
+          schemaName: retro
+                           
+
+              
+              
+                            
+              

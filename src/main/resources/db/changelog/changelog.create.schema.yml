@@ -1,0 +1,22 @@
+databaseChangeLog:
+  - objectQuotingStrategy: QUOTE_ALL_OBJECTS
+  - preConditions:
+    - onFailMessage: "Wrong DB instance"
+    - and:
+      - dbms:
+          type: postgresql
+  - changeSet:
+      - preConditions:
+        - onFail: MARK_RAN
+        - onFailMessage: "Claims schema already exist. No need to create"
+        - and:
+          - sqlCheck:
+              expectedResult: 0
+              sql: "select count(*) from information_schema.schemata WHERE schema_name = 'retro'"  
+        id: create-schema-retro-1.0:1
+        author: MBENMOHA
+        changes:
+          - sql:
+              dbms: postgresql
+              endDelimiter: ;
+              sql: create schema retro

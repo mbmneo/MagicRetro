@@ -1,0 +1,61 @@
+databaseChangeLog:
+  - objectQuotingStrategy: QUOTE_ALL_OBJECTS
+  - preConditions:
+    - dbms:
+        type: postgresql
+  - changeSet:
+      id: item-1.0:1
+      author: MBENMOHA
+      changes:
+      - createTable:
+          columns:
+          - column:
+              constraints:
+                nullable: false
+                unique: true
+              name: id
+              type: BIGINT
+          - column:
+              name: description
+              type: VARCHAR(255)
+          - column:
+              name: total_vote
+              type: INT
+          - column:
+              constraints:
+                nullable: false
+              name: column_id
+              type: BIGINT
+          - column:
+              constraints:
+                nullable: false
+              name: update_date
+              type: TIMESTAMP(6) WITHOUT TIME ZONE
+          - column:
+              name: active_indicator
+              type: BOOLEAN
+          tableName: item
+          schemaName: retro
+                           
+  - changeSet:
+      id: item-1.0:2
+      author: MBENMOHA
+      changes:
+      - addForeignKeyConstraint:
+          baseColumnNames: column_id
+          baseTableName: item
+          constraintName: item_column_fk
+          deferrable: false
+          initiallyDeferred: false
+          onDelete: NO ACTION
+          onUpdate: NO ACTION
+          referencedColumnNames: id
+          referencedTableName: column
+          schemaName: retro
+          referencedTableSchemaName: retro
+          baseTableSchemaName: retro
+
+              
+              
+                            
+              
