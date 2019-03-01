@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.magicretro.domain.Board;
+import com.magicretro.domain.BoardEntity;
 import com.magicretro.service.BoardService;
 
 @RestController
@@ -15,7 +15,7 @@ public class BoardController {
 	BoardService boardService;
 	
 	@PostMapping("/board")
-	Board newBoard(@RequestBody Board newBoard) {
+	BoardEntity newBoard(@RequestBody BoardEntity newBoard) {
 		return boardService.addBoard(newBoard);
 	}
 	
