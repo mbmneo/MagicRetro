@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 
@@ -20,8 +21,9 @@ import org.hibernate.annotations.Where;
 public class ItemEntity extends BaseEntity<Long> {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="id")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "item_sequence_generator")
+	@SequenceGenerator(name="item_sequence_generator", sequenceName = "item_sequence", schema = "retro",allocationSize=1)
+	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	
 	@Column(name="description")

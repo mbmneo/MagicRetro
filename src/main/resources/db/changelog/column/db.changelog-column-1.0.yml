@@ -58,7 +58,17 @@ databaseChangeLog:
           referencedTableSchemaName: retro
           baseTableSchemaName: retro
 
-              
+  - changeSet:
+      id: column-1.0:3
+      author: MBENMOHA
+      changes:
+      - createSequence:
+          cycle: false
+          incrementBy: 1
+          minValue: 1
+          schemaName: retro
+          sequenceName: column_sequence
+          startValue: 1            
               
                             
               
