@@ -70,11 +70,11 @@ public class ColumnEntity extends BaseEntity<Long> {
 		this.description = description;
 	}
 	
-	public ColorCode getStageCode() {
+	public ColorCode getColorCode() {
 		return colorCode;
 	}
 	
-	public void setStageCode(ColorCode colorCode) {
+	public void setColorCode(ColorCode colorCode) {
 		this.colorCode = colorCode;
 	}
 	
