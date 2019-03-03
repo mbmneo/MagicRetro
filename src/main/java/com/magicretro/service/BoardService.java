@@ -8,22 +8,27 @@ import com.magicretro.exceptions.ResourceNotFoundException;
 import com.magicretro.repository.BoardRepo;
 
 @Service
-public class BoardService {
+public class BoardService extends BaseService<BoardEntity> {
 
 	@Autowired 
 	BoardRepo boardRepo;
 
-	public String addBoard(BoardEntity newBoard) {
-		return Long.toString(boardRepo.save(newBoard).getId());
+	public String postBoard(BoardEntity board) {
+		return Long.toString(boardRepo.save(board).getId());
 	}
 	
-	public BoardEntity getBoardById(String id) {
-		return boardRepo.getBoardEntityById(Long.parseLong(id))
-		.orElseThrow(()->new ResourceNotFoundException("Board " + id+ " not found"));
+	public String patchBoard(Long boardId, BoardEntity board) {
+		BoardEntity boardEntity = getBoard(boardId);
+		return Long.toString(boardRepo.save(merge(board, boardEntity)).getId());
 	}
 	
-	public String deleteBoardById(String id) {
-		boardRepo.delete(getBoardById(id));
-		return id;
+	public BoardEntity getBoard(Long boardId) {
+		return boardRepo.getBoardEntityById(boardId)
+		.orElseThrow(()->new ResourceNotFoundException("Board " + boardId+ " not found"));
+	}
+	
+	public Long deleteBoard(Long boardId) {
+		boardRepo.deleteById(boardId);
+		return boardId;
 	}
 }

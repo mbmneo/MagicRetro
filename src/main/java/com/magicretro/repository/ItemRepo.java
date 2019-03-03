@@ -11,5 +11,7 @@ import com.magicretro.domain.ItemEntity;
 @Repository
 public interface ItemRepo extends JpaRepository<ItemEntity, Long> {
 	
-	Optional<List<ItemEntity>> getItemEntityByColumnId(Long id);
+	Optional<ItemEntity> getItemEntityById(Long itemId);
+	
+	Optional<List<ItemEntity>> getItemEntityByColumnId(Long columnId);
 }

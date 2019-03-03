@@ -14,5 +14,7 @@ public class ColumnDto {
 	private String description;
 
 	private ColorCode colorCode;
+	
+	private Long boardId;
 
 }

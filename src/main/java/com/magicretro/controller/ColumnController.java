@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -26,15 +27,22 @@ public class ColumnController {
 	@Autowired
 	ControllerMapper controllerMapper;
 	
-	@PostMapping("/columns")
-	ResponseEntity<String> newColumn(@RequestBody ColumnEntity newColumn) {
+	@PostMapping("/boards/{boardId}/columns")
+	ResponseEntity<String> postColumn(@PathVariable Long boardId, @RequestBody ColumnEntity column) {
 		HttpHeaders headers = new HttpHeaders();
-		headers.set("id", columnService.addColumn(newColumn));
+		headers.set("id", columnService.postColumn(boardId, column));
 		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 	
-	@GetMapping("/boards/{id}/columns")
-	public ResponseEntity<List<ColumnDto>> getBoardById(@PathVariable String id) {
-		return new ResponseEntity<>(controllerMapper.toColumn(columnService.getColumnsByBoardId(id)), HttpStatus.OK);
+	@PatchMapping("/boards/{boardId}/columns/{columnId}")
+	ResponseEntity<String> patchColumn(@PathVariable Long boardId, @PathVariable Long columnId, @RequestBody ColumnEntity column) {
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("id", columnService.patchColumn(boardId, columnId , column));
+		return new ResponseEntity<>(headers, HttpStatus.CREATED);
+	}
+	
+	@GetMapping("/boards/{boardId}/columns")
+	public ResponseEntity<List<ColumnDto>> getColumnsByBoardId(@PathVariable Long boardId) {
+		return new ResponseEntity<>(controllerMapper.toColumn(columnService.getColumns(boardId)), HttpStatus.OK);
 	}
 }

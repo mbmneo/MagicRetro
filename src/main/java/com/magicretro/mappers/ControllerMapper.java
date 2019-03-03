@@ -1,10 +1,9 @@
 package com.magicretro.mappers;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
 import com.magicretro.domain.BoardEntity;
@@ -23,29 +22,27 @@ public interface ControllerMapper {
 	@Mappings({})
 	public BoardEntity toBoard(BoardDto board);
 	
-	@Mappings({})
+	@Mappings({
+		@Mapping(expression = "java(column.getBoard().getId())", target = "boardId")
+	})
 	public ColumnDto toColumn(ColumnEntity column);
 	
-	@Mappings({})
+	@Mappings({
+		@Mapping(source="boardId", target = "board.id")
+	})
 	public ColumnEntity toColumn(ColumnDto column);
 	
-	@Mappings({})
+	@Mappings({
+		@Mapping(expression = "java(item.getColumn().getId())", target = "columnId")
+	})
 	public ItemDto toItem(ItemEntity item);
 	
-	@Mappings({})
+	@Mappings({
+		@Mapping(source="columnId", target = "column.id")
+	})
 	public ItemEntity toItem(ItemDto item);
 	
-	public default List<ColumnDto> toColumn(List<ColumnEntity> columns) {
-		if ( columns == null ) {
-            return null;
-        }
-		return columns.stream().map(col->toColumn(col)).collect(Collectors.toList());
-	}
+	public List<ColumnDto> toColumn(List<ColumnEntity> columns);
 	
-	public default List<ItemDto> toItem(List<ItemEntity> items) {
-		if ( items == null ) {
-            return null;
-        }
-		return items.stream().map(item->toItem(item)).collect(Collectors.toList());
-	}
+	public List<ItemDto> toItem(List<ItemEntity> items);
 }

@@ -11,7 +11,7 @@ import com.magicretro.exceptions.ResourceNotFoundException;
 import com.magicretro.repository.ItemRepo;
 
 @Service
-public class ItemService {
+public class ItemService extends BaseService<ItemEntity> {
 
 	@Autowired 
 	ItemRepo itemRepo;
@@ -19,13 +19,39 @@ public class ItemService {
 	@Autowired 
 	ColumnService columnService;
 
-	public String addItem(ItemEntity newItem) {
-		return Long.toString(itemRepo.save(newItem).getId());
+	/**
+	 * Post Item
+	 * */
+	public String postItem(Long columnId, ItemEntity item) {
+		ColumnEntity column = columnService.getColumn(columnId);
+		item.setColumn(column);
+		return Long.toString(itemRepo.save(item).getId());
 	}
 	
-	public List<ItemEntity> getItemsByColumnId(String id){
-		ColumnEntity column = columnService.getColumnEntityById(id);
+	/**
+	 * Patch Item
+	 * */
+	public String patchItem(Long columnId, Long itemId, ItemEntity item) {
+		ColumnEntity columnEntity = columnService.getColumn(columnId);
+		ItemEntity itemEntity = getItem(itemId);
+		item.setColumn(columnEntity);
+		return Long.toString(itemRepo.save(merge(item, itemEntity)).getId());
+	}
+	
+	/**
+	 * Get One Item  by Column ID And Item ID
+	 * */
+	private ItemEntity getItem(Long itemId){
+		return itemRepo.getItemEntityById(itemId).
+		orElseThrow(()->new ResourceNotFoundException("Item " + itemId+ " not found"));
+	}
+	
+	/**
+	 * Get All Items by Column ID
+	 * */
+	public List<ItemEntity> getItems(Long columnId){
+		ColumnEntity column = columnService.getColumn(columnId);
 		return itemRepo.getItemEntityByColumnId(column.getId()).
-		orElseThrow(()->new ResourceNotFoundException("No items linked to column "+ id));
+		orElseThrow(()->new ResourceNotFoundException("No items linked to column "+ columnId));
 	}
 }

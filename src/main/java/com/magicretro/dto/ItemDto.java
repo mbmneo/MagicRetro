@@ -10,4 +10,6 @@ public class ItemDto {
 	private String description;
 	
 	private Integer totalVote;
+	
+	private Long columnId;
 }
