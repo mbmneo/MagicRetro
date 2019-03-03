@@ -35,6 +35,17 @@ databaseChangeLog:
           tableName: board
           schemaName: retro
                            
+  - changeSet:
+      id: board-1.0:2
+      author: MBENMOHA
+      changes:
+      - createSequence:
+          cycle: false
+          incrementBy: 1
+          minValue: 1
+          schemaName: retro
+          sequenceName: board_sequence
+          startValue: 1
 
               
               

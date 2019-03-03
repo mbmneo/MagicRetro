@@ -4,7 +4,7 @@ databaseChangeLog:
     - dbms:
         type: postgresql
   - changeSet:
-      id: item-1.0:1
+      id: user-1.0:1
       author: MBENMOHA
       changes:
       - createTable:
@@ -16,16 +16,24 @@ databaseChangeLog:
               name: id
               type: BIGINT
           - column:
-              name: description
-              type: VARCHAR(255)
-          - column:
-              name: total_vote
-              type: INT
-          - column:
+              name: name
               constraints:
                 nullable: false
-              name: column_id
-              type: BIGINT
+              type: VARCHAR(255)
+          - column:
+              name: email
+              constraints:
+                nullable: false
+                unique: true
+              type: VARCHAR(255)
+          - column:
+              name: password
+              constraints:
+                nullable: false
+              type: VARCHAR(255)
+          - column:
+              name: avatar
+              type: VARCHAR(255)              
           - column:
               constraints:
                 nullable: false
@@ -34,29 +42,12 @@ databaseChangeLog:
           - column:
               name: active_indicator
               type: BOOLEAN
-          tableName: item
+          tableName: user
           schemaName: retro
                            
-  - changeSet:
-      id: item-1.0:2
-      author: MBENMOHA
-      changes:
-      - addForeignKeyConstraint:
-          baseColumnNames: column_id
-          baseTableName: item
-          constraintName: item_column_fk
-          deferrable: false
-          initiallyDeferred: false
-          onDelete: NO ACTION
-          onUpdate: NO ACTION
-          referencedColumnNames: id
-          referencedTableName: column
-          schemaName: retro
-          referencedTableSchemaName: retro
-          baseTableSchemaName: retro
 
   - changeSet:
-      id: item-1.0:3
+      id: user-1.0:2
       author: MBENMOHA
       changes:
       - createSequence:
@@ -64,7 +55,7 @@ databaseChangeLog:
           incrementBy: 1
           minValue: 1
           schemaName: retro
-          sequenceName: item_sequence
+          sequenceName: user_sequence
           startValue: 1                
               
                             
