@@ -39,7 +39,7 @@ public class ColumnService extends BaseService<ColumnEntity> {
 	}
 	
 	/**
-	 * Get One Column  by Board ID And Column ID
+	 * Get One Column by Board ID And Column ID
 	 * */
 	public ColumnEntity getColumn(Long columnId) {
 		return columnRepo.getColumnEntityById(columnId)
