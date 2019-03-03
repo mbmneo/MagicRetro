@@ -6,4 +6,6 @@ databaseChangeLog:
 - include:
     file: classpath:/db/changelog/column/db.changelog-column-1.0.yml 
 - include:
-    file: classpath:/db/changelog/item/db.changelog-item-1.0.yml          
+    file: classpath:/db/changelog/item/db.changelog-item-1.0.yml  
+- include:
+    file: classpath:/db/changelog/user/db.changelog-user-1.0.yml                

@@ -1,0 +1,62 @@
+databaseChangeLog:
+  - objectQuotingStrategy: QUOTE_ALL_OBJECTS
+  - preConditions:
+    - dbms:
+        type: postgresql
+  - changeSet:
+      id: user-1.0:1
+      author: MBENMOHA
+      changes:
+      - createTable:
+          columns:
+          - column:
+              constraints:
+                nullable: false
+                unique: true
+              name: id
+              type: BIGINT
+          - column:
+              name: name
+              constraints:
+                nullable: false
+              type: VARCHAR(255)
+          - column:
+              name: email
+              constraints:
+                nullable: false
+                unique: true
+              type: VARCHAR(255)
+          - column:
+              name: password
+              constraints:
+                nullable: false
+              type: VARCHAR(255)
+          - column:
+              name: avatar
+              type: VARCHAR(255)              
+          - column:
+              constraints:
+                nullable: false
+              name: update_date
+              type: TIMESTAMP(6) WITHOUT TIME ZONE
+          - column:
+              name: active_indicator
+              type: BOOLEAN
+          tableName: user
+          schemaName: retro
+                           
+
+  - changeSet:
+      id: user-1.0:2
+      author: MBENMOHA
+      changes:
+      - createSequence:
+          cycle: false
+          incrementBy: 1
+          minValue: 1
+          schemaName: retro
+          sequenceName: user_sequence
+          startValue: 1                
+              
+                            
+              

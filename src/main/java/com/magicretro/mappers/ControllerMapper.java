@@ -9,9 +9,11 @@ import org.mapstruct.Mappings;
 import com.magicretro.domain.BoardEntity;
 import com.magicretro.domain.ColumnEntity;
 import com.magicretro.domain.ItemEntity;
+import com.magicretro.domain.UserEntity;
 import com.magicretro.dto.BoardDto;
 import com.magicretro.dto.ColumnDto;
 import com.magicretro.dto.ItemDto;
+import com.magicretro.dto.UserDto;
 
 @Mapper
 public interface ControllerMapper {
@@ -41,6 +43,16 @@ public interface ControllerMapper {
 		@Mapping(source="columnId", target = "column.id")
 	})
 	public ItemEntity toItem(ItemDto item);
+	
+	@Mappings({})
+	public UserEntity toUser(UserDto user);
+	
+	
+	@Mappings({
+		@Mapping(expression = "java(null)", target = "password")
+	})
+	public UserDto toUser(UserEntity user);
+	
 	
 	public List<ColumnDto> toColumn(List<ColumnEntity> columns);
 	
