@@ -19,8 +19,13 @@ public class ColumnService {
 	@Autowired 
 	ColumnRepo columnRepo;
 	
-	public ColumnEntity addColumn(ColumnEntity newColumn) {
-		return columnRepo.save(newColumn);
+	public String addColumn(ColumnEntity newColumn) {
+		return Long.toString(columnRepo.save(newColumn).getId());
+	}
+	
+	public ColumnEntity getColumnEntityById(String id) {
+		return columnRepo.getColumnEntityById(Long.parseLong(id))
+		.orElseThrow(()->new ResourceNotFoundException("Column " + id+ " not found"));
 	}
 	
 	public List<ColumnEntity> getColumnsByBoardId(String id) {

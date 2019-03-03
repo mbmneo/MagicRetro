@@ -37,7 +37,6 @@ public class BoardEntity extends BaseEntity<Long> {
 	@Column(name="stage_cd")
 	private BoardStageCode stageCode;
 	
-	
 	@Override
 	public Long getId() {
 		return id;
@@ -117,5 +116,4 @@ public class BoardEntity extends BaseEntity<Long> {
 		return "Board [id=" + id + ", title=" + title + ", description=" + description + ", stageCode=" + stageCode
 				+ "]";
 	}
-	
 }

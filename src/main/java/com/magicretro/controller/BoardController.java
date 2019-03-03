@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.magicretro.domain.BoardEntity;
+import com.magicretro.dto.BoardDto;
+import com.magicretro.mappers.ControllerMapper;
 import com.magicretro.service.BoardService;
 
 @RestController
@@ -19,6 +21,10 @@ public class BoardController {
 	
 	@Autowired
 	BoardService boardService;
+	
+	@Autowired
+	ControllerMapper controllerMapper;
+	
 	
 	@PostMapping("/boards")
 	ResponseEntity<String>  newBoard(@RequestBody BoardEntity newBoard) {
@@ -28,8 +34,8 @@ public class BoardController {
 	}
 	
 	@GetMapping("/boards/{id}")
-	public ResponseEntity<BoardEntity> getBoardById(@PathVariable String id) {
-		return new ResponseEntity<>(boardService.getBoardById(id), HttpStatus.OK);
+	public ResponseEntity<BoardDto> getBoardById(@PathVariable String id) {
+		return new ResponseEntity<>(controllerMapper.toBoard(boardService.getBoardById(id)), HttpStatus.OK);
 	}
 	
 	@DeleteMapping("/boards/{id}")

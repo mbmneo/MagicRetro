@@ -11,5 +11,6 @@ import com.magicretro.domain.ColumnEntity;
 @Repository
 public interface ColumnRepo extends JpaRepository<ColumnEntity, Long> {
 
+	Optional<ColumnEntity> getColumnEntityById(Long id);
 	Optional<List<ColumnEntity>> getColumnEntityByBoardId(Long id);
 }
