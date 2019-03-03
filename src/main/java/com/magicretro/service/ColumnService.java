@@ -22,20 +22,20 @@ public class ColumnService extends BaseService<ColumnEntity> {
 	/**
 	 * Post Column
 	 * */
-	public String postColumn(Long boardId, ColumnEntity column) {
+	public ColumnEntity postColumn(Long boardId, ColumnEntity column) {
 		BoardEntity boardEntity = boardService.getBoard(boardId);
 		column.setBoard(boardEntity);
-		return Long.toString(columnRepo.save(column).getId());
+		return columnRepo.save(column);
 	}
 	
 	/**
 	 * Patch Column
 	 * */
-	public String patchColumn(Long boardId, Long columnId, ColumnEntity column) {
+	public ColumnEntity patchColumn(Long boardId, Long columnId, ColumnEntity column) {
 		BoardEntity boardEntity = boardService.getBoard(boardId);
 		ColumnEntity columnEntity = getColumn(columnId);
 		column.setBoard(boardEntity);
-		return Long.toString(columnRepo.save(merge(column, columnEntity)).getId());
+		return columnRepo.save(merge(column, columnEntity));
 	}
 	
 	/**

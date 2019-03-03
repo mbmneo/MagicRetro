@@ -3,7 +3,6 @@ package com.magicretro.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +18,7 @@ import com.magicretro.mappers.ControllerMapper;
 import com.magicretro.service.ColumnService;
 
 @RestController
-public class ColumnController {
+public class ColumnController extends BaseController<ColumnEntity> {
 	
 	@Autowired
 	ColumnService columnService;
@@ -29,16 +28,12 @@ public class ColumnController {
 	
 	@PostMapping("/boards/{boardId}/columns")
 	ResponseEntity<String> postColumn(@PathVariable Long boardId, @RequestBody ColumnEntity column) {
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("id", columnService.postColumn(boardId, column));
-		return new ResponseEntity<>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(getHeaders(columnService.postColumn(boardId, column)), HttpStatus.CREATED);
 	}
 	
 	@PatchMapping("/boards/{boardId}/columns/{columnId}")
 	ResponseEntity<String> patchColumn(@PathVariable Long boardId, @PathVariable Long columnId, @RequestBody ColumnEntity column) {
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("id", columnService.patchColumn(boardId, columnId , column));
-		return new ResponseEntity<>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(getHeaders(columnService.patchColumn(boardId, columnId , column)), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/boards/{boardId}/columns")

@@ -1,7 +1,6 @@
 package com.magicretro.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,12 +11,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.magicretro.domain.BoardEntity;
 import com.magicretro.dto.BoardDto;
 import com.magicretro.mappers.ControllerMapper;
 import com.magicretro.service.BoardService;
 
 @RestController
-public class BoardController {
+public class BoardController extends BaseController<BoardEntity> {
 	
 	@Autowired
 	BoardService boardService;
@@ -25,19 +25,14 @@ public class BoardController {
 	@Autowired
 	ControllerMapper controllerMapper;
 	
-	
 	@PostMapping("/boards")
 	ResponseEntity<String>  postBoard(@RequestBody BoardDto board) {
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("id", boardService.postBoard(controllerMapper.toBoard(board)));
-		return new ResponseEntity<>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(getHeaders(boardService.postBoard(controllerMapper.toBoard(board))), HttpStatus.CREATED);
 	}
 
 	@PatchMapping("/boards/{boardId}")
 	public ResponseEntity<String> patchBoard(@PathVariable Long boardId, @RequestBody BoardDto board) {
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("id", boardService.patchBoard(boardId, controllerMapper.toBoard(board)));
-		return new ResponseEntity<>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(getHeaders(boardService.patchBoard(boardId, controllerMapper.toBoard(board))), HttpStatus.CREATED);
 	}
 	
 	@GetMapping("/boards/{boardId}")
@@ -47,8 +42,6 @@ public class BoardController {
 	
 	@DeleteMapping("/boards/{boardId}")
 	public ResponseEntity<String> deleteBoard(@PathVariable Long boardId) {
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("id", Long.toString(boardService.deleteBoard(boardId)));
-		return new ResponseEntity<>(headers, HttpStatus.OK);
+		return new ResponseEntity<>(getHeaders(boardService.deleteBoard(boardId)), HttpStatus.OK);
 	}	
 }

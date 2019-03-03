@@ -22,20 +22,20 @@ public class ItemService extends BaseService<ItemEntity> {
 	/**
 	 * Post Item
 	 * */
-	public String postItem(Long columnId, ItemEntity item) {
+	public ItemEntity postItem(Long columnId, ItemEntity item) {
 		ColumnEntity column = columnService.getColumn(columnId);
 		item.setColumn(column);
-		return Long.toString(itemRepo.save(item).getId());
+		return itemRepo.save(item);
 	}
 	
 	/**
 	 * Patch Item
 	 * */
-	public String patchItem(Long columnId, Long itemId, ItemEntity item) {
+	public ItemEntity patchItem(Long columnId, Long itemId, ItemEntity item) {
 		ColumnEntity columnEntity = columnService.getColumn(columnId);
 		ItemEntity itemEntity = getItem(itemId);
 		item.setColumn(columnEntity);
-		return Long.toString(itemRepo.save(merge(item, itemEntity)).getId());
+		return itemRepo.save(merge(item, itemEntity));
 	}
 	
 	/**

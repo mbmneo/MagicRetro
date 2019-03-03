@@ -16,16 +16,16 @@ public class BoardService extends BaseService<BoardEntity> {
 	/**
 	 * Post Board
 	 * */
-	public String postBoard(BoardEntity board) {
-		return Long.toString(boardRepo.save(board).getId());
+	public BoardEntity postBoard(BoardEntity board) {
+		return boardRepo.save(board);
 	}
 	
 	/**
 	 * Patch Board
 	 * */
-	public String patchBoard(Long boardId, BoardEntity board) {
+	public BoardEntity patchBoard(Long boardId, BoardEntity board) {
 		BoardEntity boardEntity = getBoard(boardId);
-		return Long.toString(boardRepo.save(merge(board, boardEntity)).getId());
+		return boardRepo.save(merge(board, boardEntity));
 	}
 	
 	/**
